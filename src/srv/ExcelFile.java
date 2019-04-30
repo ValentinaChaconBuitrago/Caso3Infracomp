@@ -1,16 +1,31 @@
 package srv;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 import org.apache.poi.*;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
 
 public class ExcelFile {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws FileNotFoundException, IOException 
     { 
-		/*
-        // Blank workbook 
-        XSSFWorkbook workbook = new XSSFWorkbook(); 
-  
+		
+		 // Blank workbook 
+        HSSFWorkbook workbook = new HSSFWorkbook(); 
+        
         // Create a blank sheet 
-        XSSFSheet sheet = workbook.createSheet("student Details"); 
+        HSSFSheet sheet = workbook.createSheet("student Details"); 
   
         // This data needs to be written (Object[]) 
         Map<String, Object[]> data = new TreeMap<String, Object[]>(); 
@@ -47,5 +62,7 @@ public class ExcelFile {
         catch (Exception e) { 
             e.printStackTrace(); 
         } 
-    } */
+    }  
+    } 
+
 
