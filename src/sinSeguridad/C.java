@@ -19,6 +19,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import seguridad.D;
 import seguridad.ExcelFile;
+import seguridad.Utility;
 
 public class C {
 	private static ServerSocket ss;	
@@ -58,7 +59,7 @@ public class C {
 
 
 		Map<String, Object[]> data = new TreeMap<String, Object[]>(); 
-		data.put("1", new Object[]{ "NAME", "LASTNAME" }); 
+		data.put("1", new Object[]{ "TIEMPO", "CPU", "TRANSACCIONES PERDIDAS" }); 
 		System.out.println("Ingrese el numero de peticiones que va a realizar para la prueba");
 		int peticiones = Integer.parseInt(br.readLine());
 		int kkey = 2;
@@ -69,11 +70,24 @@ public class C {
 				Socket sc = ss.accept();
 				System.out.println(MAESTRO + "Cliente " + idThread + " aceptado.");
 
+				//Start time
+				long startTime = System.currentTimeMillis();
+				
 				executor.submit(new D(sc, idThread));
+				
+				//End time
+				long endTime = System.currentTimeMillis();
+				long timeElapsed = endTime - startTime;
+				String time = ""+timeElapsed;
+				
+				//CPU
+				Utility u = new Utility();
+				double cpu = u.getSystemCpuLoad();
+				
 				idThread++;
 				String f = ""+kkey;
 				//TODO aqui se crea un objeto con los resultados de las medidas de respuesta tomadas en la peticion
-				data.put(f, new Object[]{ "CHACON", "Kumar" }); 
+				data.put(f, new Object[]{ timeElapsed, cpu }); 
 				kkey++;
 				peticiones--;
 			} catch (IOException e) {

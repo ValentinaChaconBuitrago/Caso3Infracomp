@@ -7,7 +7,7 @@ import javax.management.AttributeList;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
-public class Utils {
+public class Utility {
 	
 	public double getSystemCpuLoad() throws Exception{
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();

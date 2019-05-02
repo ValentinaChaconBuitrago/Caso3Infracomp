@@ -88,6 +88,10 @@ public class ExcelFile {
 					cell.setCellValue((String)obj); 
 				else if (obj instanceof Integer) 
 					cell.setCellValue((Integer)obj); 
+				else if(obj instanceof Double)
+					cell.setCellValue((Double)obj);
+				else if(obj instanceof Long)
+					cell.setCellValue((Long)obj);
 			} 
 		}         	
 	}  
