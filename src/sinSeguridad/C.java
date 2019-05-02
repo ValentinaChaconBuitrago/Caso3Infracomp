@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.KeyPair;
@@ -55,12 +56,11 @@ public class C {
 
 		// Blank workbook 
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		System.out.println("Ingrese el numero de pruebas que va a realizar");
-		int takes = Integer.parseInt(br.readLine());
-
 
 		Map<String, Object[]> data = new TreeMap<String, Object[]>(); 
 		data.put("1", new Object[]{ "TIEMPO", "CPU"}); 
+		System.out.println("Ingrese el nombre del archivo donde quiere guardar la informacion");
+		String nomArchivo = br.readLine();
 		System.out.println("Ingrese el numero de peticiones que va a realizar para la prueba");
 		int peticiones = Integer.parseInt(br.readLine());
 		int kkey = 2;
@@ -72,14 +72,16 @@ public class C {
 				System.out.println(MAESTRO + "Cliente " + idThread + " aceptado.");
 
 				//Start time
-				long startTime = System.currentTimeMillis();
+				double startTime = System.nanoTime();
+				System.out.println("El TIEMPO INICIAL" + startTime);
 				
 				executor.submit(new D(sc, idThread));
 				
 				//End time
-				long endTime = System.currentTimeMillis();
-				long timeElapsed = endTime - startTime;
-				String time = ""+timeElapsed;
+				double endTime = System.nanoTime();
+				System.out.println("El TIEMPO FINAL" + endTime);
+				double timeElapsed =(double)endTime - (double)startTime;
+				System.out.println("El TIEMPO ES" + timeElapsed);
 				
 				//CPU
 				Utility u = new Utility();
@@ -96,11 +98,12 @@ public class C {
 				e.printStackTrace();
 			}
 		}
-		ExcelFile.generate(workbook, 1, data);				
+		ExcelFile.generate(workbook, nomArchivo, data);
+		System.out.println("Se genero el archivo");
 		try { 
 			// this Writes the workbook gfgcontribute 
 			System.out.println("Ingrese el nombre del archivo donde desea almacenar los resutados ");
-			FileOutputStream out = new FileOutputStream(new File(br.readLine() + ".xls")); 
+			FileOutputStream out = new FileOutputStream(new File(nomArchivo + ".xls")); 
 			workbook.write(out); 
 			out.close(); 
 			System.out.println("doc1.xls written successfully on disk."); 

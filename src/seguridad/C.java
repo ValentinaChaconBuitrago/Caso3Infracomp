@@ -51,8 +51,6 @@ public class C {
 
 		// Blank workbook 
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		System.out.println("Ingrese el numero de pruebas que va a realizar");
-		int takes = Integer.parseInt(br.readLine());
 		//Para cada configuracion de los threads (un pool de 2, de 1, etc.) se tiene un numero distinto de pruebas e.g:3
 		//1) intentar con 800 peticiones
 		//2) intentar con 300 peticiones
@@ -60,6 +58,8 @@ public class C {
 
 		Map<String, Object[]> data = new TreeMap<String, Object[]>(); 
 		data.put("1", new Object[]{ "TIEMPO", "CPU"}); 
+		System.out.println("Ingrese el nombre del archivo donde quiere guardar la informacion");
+		String nomArchivo = br.readLine();
 		System.out.println("Ingrese el numero de peticiones que va a realizar para la prueba");
 		int peticiones = Integer.parseInt(br.readLine());
 		int kkey = 2;
@@ -70,13 +70,13 @@ public class C {
 				System.out.println(MAESTRO + "Cliente " + idThread + " aceptado.");
 
 				//Start time
-				long startTime = System.currentTimeMillis();
+				long startTime =System.nanoTime();
 				
 				executor.submit(new D(sc, idThread));
 				
 				//End time
-				long endTime = System.currentTimeMillis();
-				long timeElapsed = endTime - startTime;
+				double endTime = System.nanoTime();
+				double timeElapsed = endTime - startTime;
 				String time = ""+timeElapsed;
 				
 				//CPU
@@ -86,7 +86,8 @@ public class C {
 				idThread++;
 				String f = ""+kkey;
 				//TODO aqui se crea un objeto con los resultados de las medidas de respuesta tomadas en la peticion
-				data.put(f, new Object[]{ timeElapsed, cpu}); 
+				System.out.println("CPU " + cpu + "peticiones " + peticiones);
+				data.put(f, new Object[]{timeElapsed, cpu}); 
 				kkey++;
 				peticiones--;
 			} catch (IOException e) {
@@ -94,11 +95,11 @@ public class C {
 				e.printStackTrace();
 			}
 		}
-		ExcelFile.generate(workbook, 1, data);				
+		ExcelFile.generate(workbook, nomArchivo, data);
+		System.out.println("Se genero el archivo");
 		try { 
 			// this Writes the workbook gfgcontribute 
-			System.out.println("Ingrese el nombre del archivo donde desea almacenar los resutados ");
-			FileOutputStream out = new FileOutputStream(new File(br.readLine() + ".xls")); 
+			FileOutputStream out = new FileOutputStream(new File(nomArchivo+".xls")); 
 			workbook.write(out); 
 			out.close(); 
 			System.out.println("doc1.xls written successfully on disk."); 

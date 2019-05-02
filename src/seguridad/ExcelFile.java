@@ -49,7 +49,7 @@ public class ExcelFile {
 				kkey++;
 				peticiones--;
 			}
-			ExcelFile.generate(workbook, counter, data);
+			ExcelFile.generate(workbook, "hola", data);
 			counter++;;
 		}
 
@@ -67,7 +67,7 @@ public class ExcelFile {
 	}
 
 
-	public static void generate (HSSFWorkbook workbook, int numTest,Map<String,Object[]> data) throws FileNotFoundException, IOException 
+	public static void generate (HSSFWorkbook workbook, String numTest,Map<String,Object[]> data) throws FileNotFoundException, IOException 
 	{ 
 		// Create a blank sheet 
 		String name = "Prueba " + numTest;
