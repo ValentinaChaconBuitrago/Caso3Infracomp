@@ -1,4 +1,4 @@
-package srv;
+package seguridad;
 
 import java.lang.management.ManagementFactory;
 
