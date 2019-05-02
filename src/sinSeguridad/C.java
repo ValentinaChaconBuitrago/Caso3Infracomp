@@ -50,6 +50,7 @@ public class C {
 		keyPairServidor = S.grsa();
 		certSer = S.gc(keyPairServidor);
 		D.initCertificate(certSer, keyPairServidor);
+		//Aqui se determina el numero de threads que se van a tener en el pool
 		ExecutorService executor = Executors.newFixedThreadPool(1);
 
 		// Blank workbook 
@@ -59,7 +60,7 @@ public class C {
 
 
 		Map<String, Object[]> data = new TreeMap<String, Object[]>(); 
-		data.put("1", new Object[]{ "TIEMPO", "CPU", "TRANSACCIONES PERDIDAS" }); 
+		data.put("1", new Object[]{ "TIEMPO", "CPU"}); 
 		System.out.println("Ingrese el numero de peticiones que va a realizar para la prueba");
 		int peticiones = Integer.parseInt(br.readLine());
 		int kkey = 2;
