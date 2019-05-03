@@ -47,7 +47,7 @@ public class C {
 		certSer = S.gc(keyPairServidor);
 		D.initCertificate(certSer, keyPairServidor);
 		//Aqui se determina el numero de threads que se van a tener el en pool
-		ExecutorService executor = Executors.newFixedThreadPool(1);
+		ExecutorService executor = Executors.newFixedThreadPool(2);
 
 		// Blank workbook 
 		HSSFWorkbook workbook = new HSSFWorkbook();
