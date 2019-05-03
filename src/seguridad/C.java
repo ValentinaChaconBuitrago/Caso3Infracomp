@@ -54,7 +54,7 @@ public class C {
 		//Para cada configuracion de los threads (un pool de 2, de 1, etc.) se tiene un numero distinto de pruebas e.g:3
 		//1) intentar con 800 peticiones
 		//2) intentar con 300 peticiones
-		//3) intentar con 100 peticiones
+		//3) intentar con 100 peticiones 
 
 		Map<String, Object[]> data = new TreeMap<String, Object[]>(); 
 		data.put("1", new Object[]{ "TIEMPO", "CPU"}); 
