@@ -68,11 +68,11 @@ public class C {
 			try { 
 				Socket sc = ss.accept();
 				System.out.println(MAESTRO + "Cliente " + idThread + " aceptado.");
-
 				//Start time
 				long startTime =System.nanoTime();
 				
 				executor.submit(new D(sc, idThread));
+				//executor.execute(new D(sc, idThread));
 				
 				//End time
 				double endTime = System.nanoTime();
