@@ -47,7 +47,7 @@ public class C {
 		certSer = S.gc(keyPairServidor);
 		D.initCertificate(certSer, keyPairServidor);
 		//Aqui se determina el numero de threads que se van a tener el en pool
-		ExecutorService executor = Executors.newFixedThreadPool(2);
+		ExecutorService executor = Executors.newFixedThreadPool(1);
 
 		// Blank workbook 
 		HSSFWorkbook workbook = new HSSFWorkbook();
@@ -85,7 +85,6 @@ public class C {
 				
 				idThread++;
 				String f = ""+kkey;
-				//TODO aqui se crea un objeto con los resultados de las medidas de respuesta tomadas en la peticion
 				System.out.println("CPU " + cpu + "peticiones " + peticiones);
 				data.put(f, new Object[]{timeElapsed, cpu}); 
 				kkey++;

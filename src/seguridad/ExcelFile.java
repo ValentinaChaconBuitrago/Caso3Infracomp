@@ -44,7 +44,6 @@ public class ExcelFile {
 			while (peticiones > 0) {
 
 				String f = ""+kkey;
-				//TODO aqui se crea un objeto con los resultados de las medidas de respuesta tomadas en la peticion
 				data.put(f, new Object[]{"CHACON", "VV" }); 
 				kkey++;
 				peticiones--;

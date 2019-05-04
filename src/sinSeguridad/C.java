@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.KeyPair;
@@ -18,7 +17,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import seguridad.D;
+import sinSeguridad.D;
 import seguridad.ExcelFile;
 import seguridad.Utility;
 
@@ -52,7 +51,7 @@ public class C {
 		certSer = S.gc(keyPairServidor);
 		D.initCertificate(certSer, keyPairServidor);
 		//Aqui se determina el numero de threads que se van a tener en el pool
-		ExecutorService executor = Executors.newFixedThreadPool(1);
+		ExecutorService executor = Executors.newFixedThreadPool(2);
 
 		// Blank workbook 
 		HSSFWorkbook workbook = new HSSFWorkbook();
@@ -67,21 +66,19 @@ public class C {
 
 
 		while (peticiones > 0) {
+			peticiones--;
 			try { 
 				Socket sc = ss.accept();
 				System.out.println(MAESTRO + "Cliente " + idThread + " aceptado.");
 
 				//Start time
 				double startTime = System.nanoTime();
-				System.out.println("El TIEMPO INICIAL" + startTime);
 				
 				executor.submit(new D(sc, idThread));
 				
 				//End time
 				double endTime = System.nanoTime();
-				System.out.println("El TIEMPO FINAL" + endTime);
 				double timeElapsed =(double)endTime - (double)startTime;
-				System.out.println("El TIEMPO ES" + timeElapsed);
 				
 				//CPU
 				Utility u = new Utility();
@@ -89,10 +86,8 @@ public class C {
 				
 				idThread++;
 				String f = ""+kkey;
-				//TODO aqui se crea un objeto con los resultados de las medidas de respuesta tomadas en la peticion
 				data.put(f, new Object[]{ timeElapsed, cpu }); 
 				kkey++;
-				peticiones--;
 			} catch (IOException e) {
 				System.out.println(MAESTRO + "Error creando el socket cliente.");
 				e.printStackTrace();
@@ -102,7 +97,6 @@ public class C {
 		System.out.println("Se genero el archivo");
 		try { 
 			// this Writes the workbook gfgcontribute 
-			System.out.println("Ingrese el nombre del archivo donde desea almacenar los resutados ");
 			FileOutputStream out = new FileOutputStream(new File(nomArchivo + ".xls")); 
 			workbook.write(out); 
 			out.close(); 
